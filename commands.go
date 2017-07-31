@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"path/filepath"
-	"github.com/pr8kerl/f5er/f5"
+	"./f5"
 )
 
 var f5Cmd = &cobra.Command{
@@ -423,6 +423,22 @@ var showVirtualCmd = &cobra.Command{
 			}
 			appliance.PrintObject(res)
 		}
+	},
+}
+
+var showVirtualProfilesCmd = &cobra.Command{
+	Use:   "virtual-profile",
+	Short: "show a virtual servers profiles",
+	Long:  "displays the profiles for a virtual server",
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) != 1 {
+			log.Fatal("A virtual server must be specified")
+		}
+		err, res := appliance.ShowVirtualProfiles(args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
+		appliance.PrintObject(res)
 	},
 }
 

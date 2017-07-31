@@ -173,6 +173,34 @@ func (f *Device) ShowVirtualStats(vname string) (error, *LBObjectStats) {
 	}
 }
 
+func (f *Device) ShowVirtualProfiles(vname string) (error, *json.RawMessage) {
+
+	vname = strings.Replace(vname, "/", "~", -1)
+	u := f.Proto + "://" + f.Hostname + "/mgmt/tm/ltm/virtual/" + vname + "/profiles"
+	res := json.RawMessage{}
+
+	err, _ := f.sendRequest(u, GET, nil, &res)
+	if err != nil {
+		return err, nil
+	} else {
+		return nil, &res
+	}
+}
+
+func (f *Device) AddVirtualProfile(vname string, profile *LBVirtualProfile) (error, *LBVirtualProfile) {
+
+	vname = strings.Replace(vname, "/", "~", -1)
+	u := f.Proto + "://" + f.Hostname + "/mgmt/tm/ltm/virtual/" + vname + "/profiles"
+	res := LBVirtualProfile{}
+
+	err, _ := f.sendRequest(u, POST, profile, &res)
+	if err != nil {
+		return err, nil
+	} else {
+		return nil, &res
+	}
+}
+
 func (f *Device) ShowAllVirtualStats() (error, *LBVirtualStats) {
 
 	u := f.Proto + "://" + f.Hostname + "/mgmt/tm/ltm/virtual/stats"

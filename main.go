@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/jmcvetta/napping"
-	"github.com/pr8kerl/f5er/f5"
+	//"github.com/pr8kerl/f5er/f5"
+	"./f5"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"net/http"
@@ -129,6 +130,7 @@ func init() {
 	showCmd.AddCommand(showStackCmd)
 	showCmd.AddCommand(showCertCmd)
 	showCmd.AddCommand(showCertsCmd)
+	showCmd.AddCommand(showVirtualProfilesCmd)
 
 	// add
 	f5Cmd.AddCommand(addCmd)
