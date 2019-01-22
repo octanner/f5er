@@ -144,6 +144,21 @@ func (f *Device) ShowVirtuals() (error, *LBVirtuals) {
 
 }
 
+func (f *Device) ShowExpandedVirtuals() (error, *LBVirtuals) {
+
+	u := f.Proto + "://" + f.Hostname + "/mgmt/tm/ltm/virtual?expandSubcollections=true"
+	res := LBVirtuals{}
+
+	err, _ := f.sendRequest(u, GET, nil, &res)
+	if err != nil {
+		return err, nil
+	} else {
+		return nil, &res
+	}
+
+}
+
+
 func (f *Device) ShowVirtual(vname string) (error, *LBVirtual) {
 
 	vname = strings.Replace(vname, "/", "~", -1)
